@@ -8,11 +8,11 @@
     body {
       font-family: sans-serif;
       padding: 20px;
-      background: #f9f9f9;
+      background: #383838;
     }
     details {
       margin-bottom: 20px;
-      background: #fff;
+      background: #91918e;
       border: 1px solid #ccc;
       border-radius: 5px;
       padding: 10px;
@@ -29,11 +29,11 @@
     .arrow {
       width: 16px;
       height: 16px;
-      background-image: url('data:image/svg+xml;utf8,<svg fill="%23007bff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5l8 7-8 7"/></svg>');
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%25555bff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5l8 7-8 7"/></svg>');
       background-repeat: no-repeat;
       background-position: center;
       background-size: 20px 20px;
-      flex-shrink: 0;
+	  flex-shrink: 0;
       transition: transform 0.3s ease;
       transform-origin: center;
       transform: rotate(0deg);
@@ -57,12 +57,11 @@
       margin-top: 10px;
     }
     .waypoint-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 5px 0;
-      flex-wrap: wrap;
-    }
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+	gap: 6px; /* small space between checkbox and text */
+  }
     .waypoint-item label {
       flex: 1;
       min-width: 200px;
@@ -82,114 +81,105 @@
       padding: 3px 8px;
       font-size: 0.9em;
       cursor: pointer;
-      background-color: #007bff;
+      background-color: #4a4a4a;
       color: white;
       border: none;
       border-radius: 3px;
     }
     .copy-btn:hover, .toggle-btn:hover {
-      background-color: #0056b3;
+      background-color: #333333;
     }
     .select-container {
       margin-top: 10px;
       text-align: left;
     }
+	.label-text {
+  cursor: pointer;
+  color: #000000;
+  text-decoration: underline;
+  user-select: none;
+}
+  input[type="checkbox"] {
+    flex-shrink: 0; /* don't shrink */
+    cursor: pointer;
+  }
+
+
   </style>
 </head>
 <body>
 
-<h1>Ultor's Kingdom of Sky POI Checklist</h1>
+<h1 style="color: #ffffff;">Ultor's Kingdom of Sky POI Checklist</h1>
 
 
 <!-- Sample Section with Select All Toggle -->
 <details open>
   <summary>
     <div class="arrow"></div>
-    <div class="section-header">
+    <div class="section-header" style="display: flex; align-items: center; justify-content: Left;">
       <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer">Tenebrous Tangle</a>
-      <img src="https://static.wikia.nocookie.net/eq2/images/4/47/Tenebrous_Tangle.jpg" alt="Tenebrous Tangle" />
+      <img src="https://static.wikia.nocookie.net/eq2/images/4/47/Tenebrous_Tangle.jpg" alt="Tenebrous Tangle" style="width: 100px; height: 100px; margin-center: 20px;" />
     </div>
   </summary>
-  <div class="waypoints">
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Bixie Isle</label>
-      <div class="waypoint-controls">
-        <code>/waypoint -507, -60, -855</code>
-        <button class="copy-btn" data-text="/waypoint -507, -60, -855">Copy</button>
+
+  <div style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; padding: 10px 0;">
+    
+    <!-- Left side: checkbox list -->
+    <div style="flex: 1; display: flex; flex-direction: column;">
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt1" />
+        <label for="tt1" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint -507, -60, -855')">Bixie Isle</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt2" />
+        <label for="tt2" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 138, 232, 868')">Fear Tainted Isle</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt3" />
+        <label for="tt3" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 767, 461, -110')">Gazer Isle</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt4" />
+        <label for="tt4" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 179, -233, 165')">Hidden Refuge</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt5" />
+        <label for="tt5" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 519, 247, -713')">Ravasect Incursion Site</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt6" />
+        <label for="tt6" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 220, 21, -176')">Sanctum of Scaleborn</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt7" />
+        <label for="tt7" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint -112, 73, -109')">Shrine to the Wurmking</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt8" />
+        <label for="tt8" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 12, 45, -64')">Temple Grounds</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt9" />
+        <label for="tt9" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint -11, 48, -196')">Temple of Scale</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt10" />
+        <label for="tt10" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint 510, -150, 230')">Vicious Breeding Grounds</label>
+      </div>
+      <div class="waypoint-item">
+        <input type="checkbox" id="tt11" />
+        <label for="tt11" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint -627, 134, -87')">Vultak Scavenging Site</label>
       </div>
     </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Fear Tainted Isle</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 138, 232, 868</code>
-        <button class="copy-btn" data-text="/waypoint 138, 232, 868">Copy</button>
-      </div>
+
+    <!-- Right: Image -->
+    <div style="flex-shrink: 0; width: 150px; height: 150px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center;">
+      <img src="https://via.placeholder.com/140" alt="Tenebrous Tangle Image" style="max-width: 100%; max-height: 100%;" />
     </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Gazer Isle</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 767, 461, -110</code>
-        <button class="copy-btn" data-text="/waypoint 767, 461, -110">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Hidden Refuge</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 179, -233, 165</code>
-        <button class="copy-btn" data-text="/waypoint 179, -233, 165">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Ravasect Incursion Site</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 519, 247, -713</code>
-        <button class="copy-btn" data-text="/waypoint 519, 247, -713">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Sanctum of Scaleborn</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 220, 21, -176</code>
-        <button class="copy-btn" data-text="/waypoint 220, 21, -176">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Shrine to the Wurmking</label>
-      <div class="waypoint-controls">
-        <code>/waypoint -112, 73, -109</code>
-        <button class="copy-btn" data-text="/waypoint -112, 73, -109">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Temple Grounds</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 12, 45, -64</code>
-        <button class="copy-btn" data-text="/waypoint 12, 45, -64">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Temple of Scale</label>
-      <div class="waypoint-controls">
-        <code>/waypoint -11, 48, -196</code>
-        <button class="copy-btn" data-text="/waypoint -11, 48, -196">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Vicious Breeding Grounds</label>
-      <div class="waypoint-controls">
-        <code>/waypoint 510, -150, 230</code>
-        <button class="copy-btn" data-text="/waypoint 510, -150, 230">Copy</button>
-      </div>
-    </div>
-    <div class="waypoint-item">
-      <label><input type="checkbox" /> Vultak Scavenging Site</label>
-      <div class="waypoint-controls">
-        <code>/waypoint -627, 134, -87</code>
-        <button class="copy-btn" data-text="/waypoint -627, 134, -87">Copy</button>
-      </div>
-    </div>
+
   </div>
-  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)" style="margin-top: 10px; align-self: flex-start;">Select All</button>
 </details>
 
 <details open>
@@ -202,10 +192,8 @@
   </summary>
   <div class="waypoints">
     <div class="waypoint-item">
-      <label><input type="checkbox" /> The Blacktalon Camp</label>
-      <div class="waypoint-controls">
-        <code>/waypoint -546, 134, 254</code>
-        <button class="copy-btn" data-text="/waypoint -546, 134, 254">Copy</button>
+        <input type="checkbox" id="bs1" />
+		<label for="bs1" class="label-text" onclick="event.preventDefault(); copyWaypoint('/waypoint -546, 134, 254')">The Blacktalon Camp</label>
       </div>
     </div>
     <div class="waypoint-item">
@@ -1175,17 +1163,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentStates = Array.from(checkboxes).map(c => c.checked);
     localStorage.setItem(key, JSON.stringify(currentStates));
   }
-  
-	// Copy button logic
-  document.querySelectorAll('.copy-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const text = button.getAttribute('data-text');
-      navigator.clipboard.writeText(text).then(() => {
-        button.textContent = 'Copied!';
-        setTimeout(() => button.textContent = 'Copy', 1500);
-      }).catch(() => alert('Copy failed'));
+    
+  document.querySelectorAll('.waypoint-label').forEach(label => {
+  label.addEventListener('click', (e) => {
+    // Avoid triggering when clicking directly on checkbox
+    if (e.target.tagName.toLowerCase() === 'input') return;
+
+    const waypoint = label.getAttribute('data-waypoint');
+    navigator.clipboard.writeText(waypoint).then(() => {
+      // Optional visual feedback
+      const oldText = label.innerHTML;
+      label.innerHTML = '📋 Copied to clipboard!';
+      setTimeout(() => label.innerHTML = oldText, 1000);
     });
   });
+});
+
+	// Copy button logic
+function copyWaypoint(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Copied: ' + text);
+  });
+}
+
 </script>
 
 </body>
