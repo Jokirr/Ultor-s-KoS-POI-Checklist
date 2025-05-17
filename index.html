@@ -1,154 +1,341 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Visual Checklist</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Rubik', sans-serif;
-      padding: 20px;
-      margin: 0;
-      background: url('https://images.unsplash.com/photo-1526406915894-6ef2046e3b67?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-shadow: 1px 1px 2px #000;
-    }
+<section class="checklist">
 
-    h2 {
-      text-align: center;
-      margin-bottom: 40px;
-      font-size: 2em;
-    }
-
-    section {
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 30px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-
-    h3 {
-      margin-top: 0;
-      display: flex;
-      align-items: center;
-      font-size: 1.5em;
-    }
-
-    h3 img {
-      width: 100px;
-      height: 100px;
-      margin-right: 10px;
-    }
-
-    label {
-      display: flex;
-      align-items: center;
-      margin: 10px 0;
-      font-size: 1.1em;
-    }
-
-    label img {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 10px;
-      transform: scale(1.3);
-    }
-
-    button.select-toggle {
-      margin-bottom: 10px;
-      padding: 8px 14px;
-      border: none;
-      background-color: #ffffff;
-      color: #333;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    button.select-toggle:hover {
-      background-color: #ddd;
-    }
-  </style>
-</head>
-<body>
-  <h2>Ultor's Kingdom of Sky POI Checklist</h2>
-
-<section class="Tenebrous Tangle">
-<h3>
+  <section class="section-block" id="tenebrous-tangle">
+    <h3>
   <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
   <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
     Tenebrous Tangle
   </a>
 </h3>
-  <button class="select-toggle">Select All</button>
-  <label><input type="checkbox" id="Bixie Isle"> Bixie Isle</label>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/1828/1828490.png" alt=""><input type="checkbox" id="makeBed"> Make Bed</label>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/3063/3063821.png" alt=""><input type="checkbox" id="meditate"> Meditate</label>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="tt-task1"> Clear the Shadow Roots</label>
+      <div class="waypoint">
+        <code>/waypoint -100, 50, 100</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -100, 50, 100')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="tt-task2"> Defeat the Tangle Beasts</label>
+      <div class="waypoint">
+        <code>/waypoint -110, 55, 110</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -110, 55, 110')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="the-barren-sky">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:The_Barren_Sky_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    The Barren Sky
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="bs-task1"> Gather Sky Crystals</label>
+      <div class="waypoint">
+        <code>/waypoint -200, 60, 200</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -200, 60, 200')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="bs-task2"> Activate Sky Beacon</label>
+      <div class="waypoint">
+        <code>/waypoint -210, 65, 210</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -210, 65, 210')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="bonemire">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    Bonemire
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="bm-task1"> Collect Bone Shards</label>
+      <div class="waypoint">
+        <code>/waypoint -300, 70, 300</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -300, 70, 300')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="bm-task2"> Defeat the Bone Golem</label>
+      <div class="waypoint">
+        <code>/waypoint -310, 75, 310</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -310, 75, 310')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="sanctum-of-the-scaleborn">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    Sanctum of the Scaleborn
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="ss-task1"> Retrieve Scaleborn Artifacts</label>
+      <div class="waypoint">
+        <code>/waypoint -800, 120, 800</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -800, 120, 800')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="ss-task2"> Defeat the Scaleborn Guardian</label>
+      <div class="waypoint">
+        <code>/waypoint -810, 125, 810</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -810, 125, 810')">Copy</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section-block" id="palace-of-the-awakened">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    Palace of the Awakened
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="pa-task1"> Gather Awakened Relics</label>
+      <div class="waypoint">
+        <code>/waypoint -700, 110, 700</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -700, 110, 700')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="pa-task2"> Defeat the Awakened King</label>
+      <div class="waypoint">
+        <code>/waypoint -710, 115, 710</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -710, 115, 710')">Copy</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section-block" id="the-vaults-of-elarad">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    The Vaults of El'Arad
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="ve-task1"> Unlock the Vault Door</label>
+      <div class="waypoint">
+        <code>/waypoint -900, 130, 900</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -900, 130, 900')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="ve-task2"> Collect Vault Treasures</label>
+      <div class="waypoint">
+        <code>/waypoint -910, 135, 910</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -910, 135, 910')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="nest-of-the-great-egg">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    Nest of the Great Egg
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="ng-task1"> Find the Great Egg</label>
+      <div class="waypoint">
+        <code>/waypoint -1000, 140, 1000</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -1000, 140, 1000')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="ng-task2"> Protect the Great Egg</label>
+      <div class="waypoint">
+        <code>/waypoint -1010, 145, 1010</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -1010, 145, 1010')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="the-blackscale-sepulcher">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    The Blackscale Sepulcher
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="bs-task1"> Explore the Sepulcher</label>
+      <div class="waypoint">
+        <code>/waypoint -400, 80, 400</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -400, 80, 400')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="bs-task2"> Defeat the Blackscale Lord</label>
+      <div class="waypoint">
+        <code>/waypoint -410, 85, 410</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -410, 85, 410')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="the-halls-of-fate">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    The Halls of Fate
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="hf-task1"> Solve the Fate Puzzle</label>
+      <div class="waypoint">
+        <code>/waypoint -500, 90, 500</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -500, 90, 500')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="hf-task2"> Defeat the Fate Guardian</label>
+      <div class="waypoint">
+        <code>/waypoint -510, 95, 510</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -510, 95, 510')">Copy</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block" id="den-of-the-devourer">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    Den of the Devourer
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="dd-task1"> Stealth Past the Devourers</label>
+      <div class="waypoint">
+        <code>/waypoint -600, 100, 600</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -600, 100, 600')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="dd-task2"> Destroy the Devourer Heart</label>
+      <div class="waypoint">
+        <code>/waypoint -610, 105, 610</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -610, 105, 610')">Copy</button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section-block" id="ascent-of-the-awakened">
+    <h3>
+  <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="">
+  <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
+    Ascent of the Awakened
+  </a>
+</h3>
+    <button class="select-toggle">Select All</button>
+    <div class="task-row">
+      <label><input type="checkbox" id="aa-task1"> Reach the Summit</label>
+      <div class="waypoint">
+        <code>/waypoint -1100, 150, 1100</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -1100, 150, 1100')">Copy</button>
+      </div>
+    </div>
+    <div class="task-row">
+      <label><input type="checkbox" id="aa-task2"> Claim the Awakened's Blessing</label>
+      <div class="waypoint">
+        <code>/waypoint -1110, 155, 1110</code>
+        <button class="copy-btn" onclick="copyWaypoint('/waypoint -1110, 155, 1110')">Copy</button>
+      </div>
+    </div>
+  </section>
+
 </section>
 
-<section class="The Barren Sky">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/1055/1055687.png" alt="">
-    <a href="https://example.com/work" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      The Barren Sky
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/561/561127.png" alt=""><input type="checkbox" id="checkEmail"> Check Email</label>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/888/888879.png" alt=""><input type="checkbox" id="dailyStandup"> Attend Standup</label>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/1177/1177568.png" alt=""><input type="checkbox" id="codeReview"> Code Review</label>
-</section>
+<style>
+  .section-block {
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+  }
 
-<section class="evening">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/3075/3075977.png" alt="">
-    <a href="https://example.com/evening" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Evening Routine
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/1046/1046784.png" alt=""><input type="checkbox" id="dinner"> Eat Dinner</label>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/847/847969.png" alt=""><input type="checkbox" id="journal"> Write Journal</label>
-  <label><img src="https://cdn-icons-png.flaticon.com/128/3209/3209071.png" alt=""><input type="checkbox" id="readBook"> Read a Book</label>
-</section>
+  .section-block h3 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
 
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-        const saved = localStorage.getItem(checkbox.id);
-        checkbox.checked = saved === "true";
-        checkbox.addEventListener('change', () => {
-          localStorage.setItem(checkbox.id, checkbox.checked.toString());
-        });
-      });
+  .section-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
 
-      document.querySelectorAll('button.select-toggle').forEach(button => {
-        button.addEventListener('click', () => {
-          const section = button.closest('section');
-          const checkboxes = section.querySelectorAll('input[type="checkbox"]');
-          const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+  .select-toggle {
+    margin-bottom: 15px;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+  }
 
-          checkboxes.forEach(cb => {
-            cb.checked = !allChecked;
-            localStorage.setItem(cb.id, (!allChecked).toString());
-          });
+  .task-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
 
-          button.textContent = allChecked ? 'Select All' : 'Unselect All';
-        });
+  .task-row label {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+  }
 
-        const section = button.closest('section');
-        const checkboxes = section.querySelectorAll('input[type="checkbox"]');
-        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-        button.textContent = allChecked ? 'Unselect All' : 'Select All';
-      });
+  .waypoint {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 20px;
+  }
+
+  .copy-btn {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+  }
+</style>
+
+<script>
+  function copyWaypoint(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Waypoint copied to clipboard!');
     });
-  </script>
-</body>
-</html>
+  }
+
+  document.querySelectorAll('.select-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const section = button.closest('.section-block');
+      const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+      const allChecked = [...checkboxes].every(cb => cb.checked);
+      checkboxes.forEach(cb => cb.checked = !allChecked);
+    });
+  });
+</script>
