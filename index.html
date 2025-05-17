@@ -2,36 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Checklist with Toggle Sections</title>
+  <title>Visual Checklist</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    h2, h3 { margin-top: 20px; }
-    label { display: block; margin: 6px 0; }
-    section { margin-bottom: 30px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
-    button.select-toggle { margin-bottom: 10px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    section {
+      margin-bottom: 30px;
+      padding: 15px;
+      border-radius: 10px;
+      color: white;
+    }
+    .morning { background-color: #FFA07A; }
+    .work    { background-color: #6495ED; }
+    .evening { background-color: #8A2BE2; }
+
+    h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+    }
+    h3 img {
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 8px 0;
+    }
+
+    button.select-toggle {
+      margin-bottom: 10px;
+      padding: 6px 12px;
+      border: none;
+      background-color: white;
+      color: #333;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button.select-toggle:hover {
+      background-color: #eee;
+    }
   </style>
 </head>
 <body>
-  <h2>My Checklist</h2>
+  <h2>🌟 My Daily Checklist</h2>
 
-  <section>
-    <h3>Morning Routine</h3>
+  <section class="morning">
+    <h3><img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt=""> Morning Routine</h3>
     <button class="select-toggle">Select All</button>
     <label><input type="checkbox" id="brushTeeth"> Brush Teeth</label>
     <label><input type="checkbox" id="makeBed"> Make Bed</label>
     <label><input type="checkbox" id="meditate"> Meditate</label>
   </section>
 
-  <section>
-    <h3>Work Tasks</h3>
+  <section class="work">
+    <h3><img src="https://cdn-icons-png.flaticon.com/128/1055/1055687.png" alt=""> Work Tasks</h3>
     <button class="select-toggle">Select All</button>
     <label><input type="checkbox" id="checkEmail"> Check Email</label>
     <label><input type="checkbox" id="dailyStandup"> Attend Standup</label>
     <label><input type="checkbox" id="codeReview"> Code Review</label>
   </section>
 
-  <section>
-    <h3>Evening Routine</h3>
+  <section class="evening">
+    <h3><img src="https://cdn-icons-png.flaticon.com/128/3075/3075977.png" alt=""> Evening Routine</h3>
     <button class="select-toggle">Select All</button>
     <label><input type="checkbox" id="dinner"> Eat Dinner</label>
     <label><input type="checkbox" id="journal"> Write Journal</label>
@@ -40,35 +82,28 @@
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      // Restore checkbox state from localStorage
       document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         const saved = localStorage.getItem(checkbox.id);
         checkbox.checked = saved === "true";
-
         checkbox.addEventListener('change', () => {
           localStorage.setItem(checkbox.id, checkbox.checked.toString());
         });
       });
 
-      // Add toggle functionality to each button
       document.querySelectorAll('button.select-toggle').forEach(button => {
         button.addEventListener('click', () => {
           const section = button.closest('section');
           const checkboxes = section.querySelectorAll('input[type="checkbox"]');
-
-          // Determine if we're selecting or unselecting
           const allChecked = Array.from(checkboxes).every(cb => cb.checked);
 
-          checkboxes.forEach(checkbox => {
-            checkbox.checked = !allChecked;
-            localStorage.setItem(checkbox.id, (!allChecked).toString());
+          checkboxes.forEach(cb => {
+            cb.checked = !allChecked;
+            localStorage.setItem(cb.id, (!allChecked).toString());
           });
 
-          // Update button text
           button.textContent = allChecked ? 'Select All' : 'Unselect All';
         });
 
-        // Optional: set correct initial button text
         const section = button.closest('section');
         const checkboxes = section.querySelectorAll('input[type="checkbox"]');
         const allChecked = Array.from(checkboxes).every(cb => cb.checked);
