@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checklist with Toggle Sections</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h2, h3 { margin-top: 20px; }
+    label { display: block; margin: 6px 0; }
+    section { margin-bottom: 30px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
+    button.select-toggle { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>My Checklist</h2>
+
+  <section>
+    <h3>Morning Routine</h3>
+    <button class="select-toggle">Select All</button>
+    <label><input type="checkbox" id="brushTeeth"> Brush Teeth</label>
+    <label><input type="checkbox" id="makeBed"> Make Bed</label>
+    <label><input type="checkbox" id="meditate"> Meditate</label>
+  </section>
+
+  <section>
+    <h3>Work Tasks</h3>
+    <button class="select-toggle">Select All</button>
+    <label><input type="checkbox" id="checkEmail"> Check Email</label>
+    <label><input type="checkbox" id="dailyStandup"> Attend Standup</label>
+    <label><input type="checkbox" id="codeReview"> Code Review</label>
+  </section>
+
+  <section>
+    <h3>Evening Routine</h3>
+    <button class="select-toggle">Select All</button>
+    <label><input type="checkbox" id="dinner"> Eat Dinner</label>
+    <label><input type="checkbox" id="journal"> Write Journal</label>
+    <label><input type="checkbox" id="readBook"> Read a Book</label>
+  </section>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Restore checkbox state from localStorage
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        const saved = localStorage.getItem(checkbox.id);
+        checkbox.checked = saved === "true";
+
+        checkbox.addEventListener('change', () => {
+          localStorage.setItem(checkbox.id, checkbox.checked.toString());
+        });
+      });
+
+      // Add toggle functionality to each button
+      document.querySelectorAll('button.select-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+          const section = button.closest('section');
+          const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+
+          // Determine if we're selecting or unselecting
+          const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = !allChecked;
+            localStorage.setItem(checkbox.id, (!allChecked).toString());
+          });
+
+          // Update button text
+          button.textContent = allChecked ? 'Select All' : 'Unselect All';
+        });
+
+        // Optional: set correct initial button text
+        const section = button.closest('section');
+        const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+        button.textContent = allChecked ? 'Unselect All' : 'Select All';
+      });
+    });
+  </script>
+</body>
+</html>
