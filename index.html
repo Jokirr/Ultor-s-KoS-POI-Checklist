@@ -1,353 +1,1192 @@
-<section class="tenebrous-tangle">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/tenebrous-tangle" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Tenebrous Tangle
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EQ2 Waypoints</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    details {
+      margin-bottom: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+    }
+    summary {
+      font-weight: bold;
+      font-size: 1.2em;
+      cursor: pointer;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .arrow {
+      width: 16px;
+      height: 16px;
+      background-image: url('data:image/svg+xml;utf8,<svg fill="%23007bff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5l8 7-8 7"/></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 20px 20px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+      transform-origin: center;
+      transform: rotate(0deg);
+    }
+    details[open] > summary .arrow {
+      transform: rotate(90deg);
+    }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+    .section-header img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .waypoints {
+      margin-top: 10px;
+    }
+    .waypoint-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 5px 0;
+      flex-wrap: wrap;
+    }
+    .waypoint-item label {
+      flex: 1;
+      min-width: 200px;
+    }
+    .waypoint-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    code {
+      background: #eee;
+      padding: 3px 6px;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    .copy-btn, .toggle-btn {
+      padding: 3px 8px;
+      font-size: 0.9em;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 3px;
+    }
+    .copy-btn:hover, .toggle-btn:hover {
+      background-color: #0056b3;
+    }
+    .select-container {
+      margin-top: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
 
-  <div class="task-row">
-    <label><input type="checkbox" id="bixieIsle"> Bixie Isle</label>
-    <div class="waypoint"><code>/waypoint -507, -60, -855</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="fearTaintedIsle"> Fear Tainted Isle</label>
-    <div class="waypoint"><code>/waypoint 138, 232, 868</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="gazerIsle"> Gazer Isle</label>
-    <div class="waypoint"><code>/waypoint 767, 461, -110</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="hiddenRefuge"> Hidden Refuge</label>
-    <div class="waypoint"><code>/waypoint 179, -233, 165</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="ravasectIncursionSite"> Ravasect Incursion Site</label>
-    <div class="waypoint"><code>/waypoint 519, 247, -713</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="sanctumOfScaleborn"> Sanctum of Scaleborn</label>
-    <div class="waypoint"><code>/waypoint 220, 21, -176</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="shrineToTheWurmking"> Shrine to the Wurmking</label>
-    <div class="waypoint"><code>/waypoint -112, 73, -109</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="templeGrounds"> Temple Grounds</label>
-    <div class="waypoint"><code>/waypoint 12, 45, -64</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="templeOfScale"> Temple of Scale</label>
-    <div class="waypoint"><code>/waypoint -11, 48, -196</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="viciousBreedingGrounds"> Vicious Breeding Grounds</label>
-    <div class="waypoint"><code>/waypoint 510, -150, 230</code></div>
-  </div>
-  <div class="task-row">
-    <label><input type="checkbox" id="vultakScavengingSite"> Vultak Scavenging Site</label>
-    <div class="waypoint"><code>/waypoint -627, 134, -87</code></div>
-  </div>
-</section>
+<h1>Ultor's Kingdom of Sky POI Checklist</h1>
 
-<section class="the-barren-sky">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/the-barren-sky" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      The Barren Sky
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
 
-  <div class="task-row"><label><input type="checkbox" id="blacktalonCamp"> The Blacktalon Camp</label>
-    <div class="waypoint"><code>/waypoint -546, 134, 254</code></div>
+<!-- Sample Section with Select All Toggle -->
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="https://eq2.fandom.com/wiki/Category:Tenebrous_Tangle_Discovery_Locations" target="_blank" rel="noopener noreferrer">Tenebrous Tangle</a>
+      <img src="https://static.wikia.nocookie.net/eq2/images/8/80/Vicious_Breeding_Grounds.png" alt="Tenebrous Tangle" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Bixie Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -507, -60, -855</code>
+        <button class="copy-btn" data-text="/waypoint -507, -60, -855">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Fear Tainted Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 138, 232, 868</code>
+        <button class="copy-btn" data-text="/waypoint 138, 232, 868">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Gazer Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 767, 461, -110</code>
+        <button class="copy-btn" data-text="/waypoint 767, 461, -110">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Hidden Refuge</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 179, -233, 165</code>
+        <button class="copy-btn" data-text="/waypoint 179, -233, 165">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Ravasect Incursion Site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 519, 247, -713</code>
+        <button class="copy-btn" data-text="/waypoint 519, 247, -713">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Sanctum of Scaleborn</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 220, 21, -176</code>
+        <button class="copy-btn" data-text="/waypoint 220, 21, -176">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Shrine to the Wurmking</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -112, 73, -109</code>
+        <button class="copy-btn" data-text="/waypoint -112, 73, -109">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Temple Grounds</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 12, 45, -64</code>
+        <button class="copy-btn" data-text="/waypoint 12, 45, -64">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Temple of Scale</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -11, 48, -196</code>
+        <button class="copy-btn" data-text="/waypoint -11, 48, -196">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Vicious Breeding Grounds</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 510, -150, 230</code>
+        <button class="copy-btn" data-text="/waypoint 510, -150, 230">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Vultak Scavenging Site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -627, 134, -87</code>
+        <button class="copy-btn" data-text="/waypoint -627, 134, -87">Copy</button>
+      </div>
+    </div>
   </div>
-  <div class="task-row"><label><input type="checkbox" id="blacktalonMiningSite"> The Blacktalon Mining site</label>
-    <div class="waypoint"><code>/waypoint -685, 130, 288</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="blackwindIsle"> The Blackwind Isle</label>
-    <div class="waypoint"><code>/waypoint -322, 115, 242</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="cloudmistIsle"> The Cloudmist Isle</label>
-    <div class="waypoint"><code>/waypoint -599, 248, -103</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="despoilersCamp"> The Despoilers Camp</label>
-    <div class="waypoint"><code>/waypoint 428, 293, -633</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="drakeBreedingGround"> Drake Breeding Ground</label>
-    <div class="waypoint"><code>/waypoint 455, 201, 746</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfAversion"> Isle of Aversion</label>
-    <div class="waypoint"><code>/waypoint -277, 246, -582</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfAwakening"> Isle of Awakening</label>
-    <div class="waypoint"><code>/waypoint 136, 189, 387</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfDesolation"> Isle of Desolation</label>
-    <div class="waypoint"><code>/waypoint 337, 287, -622</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfDiscord"> Isle of Discord</label>
-    <div class="waypoint"><code>/waypoint -89, -31, -165</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfEaglewatch"> Isle of Eaglewatch</label>
-    <div class="waypoint"><code>/waypoint -247, 306, 622</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfTheGuardians"> Isle of the Guardians</label>
-    <div class="waypoint"><code>/waypoint 761, 386, -169</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="isleOfTheWatchers"> Isle of the Watchers</label>
-    <div class="waypoint"><code>/waypoint 112, 473, -403</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="palaceOfTheAwakened"> Palace of the awakened</label>
-    <div class="waypoint"><code>/waypoint 132, 150, 120</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="poolOfTheAwakened"> Pool of the awakened</label>
-    <div class="waypoint"><code>/waypoint 207, 199, 451</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="prisonersIsle"> Prisoners Isle</label>
-    <div class="waypoint"><code>/waypoint 607, -108, 24</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="stonefallBreach"> Stonefall Breach</label>
-    <div class="waypoint"><code>/waypoint -604, -64, -377</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="strifewindIsle"> Strifewind Isle</label>
-    <div class="waypoint"><code>/waypoint -99, -20, -444</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="strifewindPond"> Strifewind Pond</label>
-    <div class="waypoint"><code>/waypoint 152, -21, -490</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="strifewingCamp"> Strifewing camp</label>
-    <div class="waypoint"><code>/waypoint -20, 58, -563</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="warriorsTrainingGround"> Warriors Training Ground</label>
-    <div class="waypoint"><code>/waypoint -668, 124, 252</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="whisperwindIsle"> Whisperwind Isle</label>
-    <div class="waypoint"><code>/waypoint -473, -71, -441</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="windgazersHideout"> Windgazer's Hideout</label>
-    <div class="waypoint"><code>/waypoint -601.50, 6.25, -535.28</code></div>
-  </div>
-</section>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-<section class="bonemire">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/bonemire" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Bonemire
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">The Barren Sky</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="The Barren Sky" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Blacktalon Camp</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -546, 134, 254</code>
+        <button class="copy-btn" data-text="/waypoint -546, 134, 254">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Blacktalon Mining site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -685, 130, 288</code>
+        <button class="copy-btn" data-text="/waypoint -685, 130, 288">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Blackwind Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -322, 115, 242</code>
+        <button class="copy-btn" data-text="/waypoint -322, 115, 242">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Cloudmist Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -599, 248, -103</code>
+        <button class="copy-btn" data-text="/waypoint -599, 248, -103">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Despoilers Camp</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 428, 293, -633</code>
+        <button class="copy-btn" data-text="/waypoint 428, 293, -633">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Drake Breeding Ground</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 455, 201, 746</code>
+        <button class="copy-btn" data-text="/waypoint 455, 201, 746">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of Aversion</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -277, 246, -582</code>
+        <button class="copy-btn" data-text="/waypoint -277, 246, -582">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of Awakening</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 136, 189, 387</code>
+        <button class="copy-btn" data-text="/waypoint 136, 189, 387">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of Desolation</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 337, 287, -622</code>
+        <button class="copy-btn" data-text="/waypoint 337, 287, -622">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of Discord</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -89, -31, -165</code>
+        <button class="copy-btn" data-text="/waypoint -89, -31, -165">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of Eaglewatch</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -247, 306, 622</code>
+        <button class="copy-btn" data-text="/waypoint -247, 306, 622">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of the Guardians</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 761, 386, -169</code>
+        <button class="copy-btn" data-text="/waypoint 761, 386, -169">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Isle of the Watchers</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 112, 473, -403</code>
+        <button class="copy-btn" data-text="/waypoint 112, 473, -403">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Palace of the awakened</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 132, 150, 120</code>
+        <button class="copy-btn" data-text="/waypoint 132, 150, 120">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Pool of the awakened</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 207, 199, 451</code>
+        <button class="copy-btn" data-text="/waypoint 207, 199, 451">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Prisoners Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 607, -108, 24</code>
+        <button class="copy-btn" data-text="/waypoint 607, -108, 24">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Stonefall Breach</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -604, -64, -377</code>
+        <button class="copy-btn" data-text="/waypoint -604, -64, -377">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Strifewind Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -99, -20, -444</code>
+        <button class="copy-btn" data-text="/waypoint -99, -20, -444">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Strifewind Pond</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 152, -21, -490</code>
+        <button class="copy-btn" data-text="/waypoint 152, -21, -490">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Strifewing camp</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -20, 58, -563</code>
+        <button class="copy-btn" data-text="/waypoint -20, 58, -563">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Warriors Training Ground</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -668, 124, 252</code>
+        <button class="copy-btn" data-text="/waypoint -668, 124, 252">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Whisperwind Isle</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -473, -71, -441</code>
+        <button class="copy-btn" data-text="/waypoint -473, -71, -441">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Windgazer's Hideout</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -601.50, 6.25, -535.28</code>
+        <button class="copy-btn" data-text="/waypoint -601.50, 6.25, -535.28">Copy</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-  <div class="task-row"><label><input type="checkbox" id="akharuDigSite"> Akharu's Dig Site</label>
-    <div class="waypoint"><code>/waypoint 2, -344, -195</code></div>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">Bonemine</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="Bonemine" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Akharu's Dig Site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 2, -344, -195</code>
+        <button class="copy-btn" data-text="/waypoint 2, -344, -195">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Bashir's Excavation</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 143, -344, 152</code>
+        <button class="copy-btn" data-text="/waypoint 143, -344, 152">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Blackscale Sepulcher</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 111, 210, -649</code>
+        <button class="copy-btn" data-text="/waypoint 111, 210, -649">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Cacotoxic Stain</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 288, 197, -488</code>
+        <button class="copy-btn" data-text="/waypoint 288, 197, -488">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Calling Pool</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -147, -342, 193</code>
+        <button class="copy-btn" data-text="/waypoint -147, -342, 193">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Carrion Briar</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -55, -98, -621</code>
+        <button class="copy-btn" data-text="/waypoint -55, -98, -621">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Doomwing Dig Site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 124, 69, 589</code>
+        <button class="copy-btn" data-text="/waypoint 124, 69, 589">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Doomwing Excavation</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -256, -342, -33</code>
+        <button class="copy-btn" data-text="/waypoint -256, -342, -33">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Doomwing Pit</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -221, 88, 749</code>
+        <button class="copy-btn" data-text="/waypoint -221, 88, 749">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Drednever Crash Site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -8, 44, 510</code>
+        <button class="copy-btn" data-text="/waypoint -8, 44, 510">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Ghazi's Rest</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 938, -113, 362</code>
+        <button class="copy-btn" data-text="/waypoint 938, -113, 362">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Halls of Fate</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -3, -376, -33</code>
+        <button class="copy-btn" data-text="/waypoint -3, -376, -33">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Hive Vornerous</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 87, 89, 940</code>
+        <button class="copy-btn" data-text="/waypoint 87, 89, 940">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Muck Lurker Hollow</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 265, -165, 507</code>
+        <button class="copy-btn" data-text="/waypoint 265, -165, 507">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Pillaged Burial Site</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -822, -469, 81</code>
+        <button class="copy-btn" data-text="/waypoint -822, -469, 81">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Remnants of Xoch</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 200, -345, -12</code>
+        <button class="copy-btn" data-text="/waypoint 200, -345, -12">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Vale of Thorns</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -42, 79, 1063</code>
+        <button class="copy-btn" data-text="/waypoint -42, 79, 1063">Copy</button>
+      </div>
+    </div>
   </div>
-  <div class="task-row"><label><input type="checkbox" id="bashirsExcavation"> Bashir's Excavation</label>
-    <div class="waypoint"><code>/waypoint 143, -344, 152</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="blackscaleSepulcher"> Blackscale Sepulcher</label>
-    <div class="waypoint"><code>/waypoint 111, 210, -649</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="cacotoxicStain"> Cacotoxic Stain</label>
-    <div class="waypoint"><code>/waypoint 288, 197, -488</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="callingPool"> Calling Pool</label>
-    <div class="waypoint"><code>/waypoint -147, -342, 193</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="carrionBriar"> Carrion Briar</label>
-    <div class="waypoint"><code>/waypoint -55, -98, -621</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="doomwingDigSite"> Doomwing Dig Site</label>
-    <div class="waypoint"><code>/waypoint 124, 69, 589</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="doomwingExcavation"> Doomwing Excavation</label>
-    <div class="waypoint"><code>/waypoint -256, -342, -33</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="doomwingPit"> Doomwing Pit</label>
-    <div class="waypoint"><code>/waypoint -221, 88, 749</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="dredneverCrashSite"> Drednever Crash Site</label>
-    <div class="waypoint"><code>/waypoint -8, 44, 510</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="ghazisRest"> Ghazi's Rest</label>
-    <div class="waypoint"><code>/waypoint 938, -113, 362</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="hallsOfFate"> Halls of Fate</label>
-    <div class="waypoint"><code>/waypoint -3, -376, -33</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="hiveVornerous"> Hive Vornerous</label>
-    <div class="waypoint"><code>/waypoint 87, 89, 940</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="muckLurkerHollow"> Muck Lurker Hollow</label>
-    <div class="waypoint"><code>/waypoint 265, -165, 507</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="pillagedBurialSite"> Pillaged Burial Site</label>
-    <div class="waypoint"><code>/waypoint -822, -469, 81</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="remnantsOfXoch"> Remnants of Xoch</label>
-    <div class="waypoint"><code>/waypoint 200, -345, -12</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="valeOfThorns"> Vale of Thorns</label>
-    <div class="waypoint"><code>/waypoint -42, 79, 1063</code></div>
-  </div>
-</section>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-<section class="sanctum-of-the-scaleborn">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/sanctum-of-the-scaleborn" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Sanctum of the Scaleborn
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">Sanctum of the Scaleborn</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="Sanctum of the Scaleborn" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Audience Chamber</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 10, 85, 372</code>
+        <button class="copy-btn" data-text="/waypoint 10, 85, 372">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Banisher Preparatory</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 153, 65, -56</code>
+        <button class="copy-btn" data-text="/waypoint 153, 65, -56">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Chamber of Animation</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -139, 136, 27</code>
+        <button class="copy-btn" data-text="/waypoint -139, 136, 27">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Chamber of the Diviners</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -203, 84, 253</code>
+        <button class="copy-btn" data-text="/waypoint -203, 84, 253">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Exarch's Seclusion</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -10, 57, -202</code>
+        <button class="copy-btn" data-text="/waypoint -10, 57, -202">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Fount of Awakening</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -131, 77, 188</code>
+        <button class="copy-btn" data-text="/waypoint -131, 77, 188">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Gorg's Pit</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 8, 58, 289</code>
+        <button class="copy-btn" data-text="/waypoint 8, 58, 289">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Hall of Rites</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 8, 65, 14</code>
+        <button class="copy-btn" data-text="/waypoint 8, 65, 14">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Lair of Scale</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 12, 121, 330</code>
+        <button class="copy-btn" data-text="/waypoint 12, 121, 330">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Mouth of the Sanctum</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 12, 157, -138</code>
+        <button class="copy-btn" data-text="/waypoint 12, 157, -138">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Oratorium</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 11, 142, 32</code>
+        <button class="copy-btn" data-text="/waypoint 11, 142, 32">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Pool of Spirits</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 132, 45, 145</code>
+        <button class="copy-btn" data-text="/waypoint 132, 45, 145">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Ready Room</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 176, 157, -80</code>
+        <button class="copy-btn" data-text="/waypoint 176, 157, -80">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Reservoir of the Wraith</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 115, 36, -157</code>
+        <button class="copy-btn" data-text="/waypoint 115, 36, -157">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Room of Recovery</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -133, 43, -158</code>
+        <button class="copy-btn" data-text="/waypoint -133, 43, -158">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Scaleborn Barracks</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 163, 157, -80</code>
+        <button class="copy-btn" data-text="/waypoint 163, 157, -80">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Scaleborn Cell</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 60, 128, 172</code>
+        <button class="copy-btn" data-text="/waypoint 60, 128, 172">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Soulrend</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -39, 37, -157</code>
+        <button class="copy-btn" data-text="/waypoint -39, 37, -157">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Talonflight Armory</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -31, 128, 172</code>
+        <button class="copy-btn" data-text="/waypoint -31, 128, 172">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Yore Flame</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 12, 157, -40</code>
+        <button class="copy-btn" data-text="/waypoint 12, 157, -40">Copy</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-  <div class="task-row"><label><input type="checkbox" id="awakenedSpires"> Awakened Spires</label>
-    <div class="waypoint"><code>/waypoint 300, 18, 100</code></div>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">Palace of the Awakened</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="Palace of the Awakened" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Ampoel's Landing</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 46, 57, 0</code>
+        <button class="copy-btn" data-text="/waypoint 46, 57, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Bath of the Sky lords</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 169, 82, -18</code>
+        <button class="copy-btn" data-text="/waypoint 169, 82, -18">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Circle of Maidens</label>
+      <div class="waypoint-controls">
+        <code>2nd floor 1st room</code>
+        <button class="copy-btn" data-text="2nd floor 1st room">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Deliberation Chamber</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -147, 86, -16</code>
+        <button class="copy-btn" data-text="/waypoint -147, 86, -16">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Enlightenment Aviary</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -171, 131.5, 13</code>
+        <button class="copy-btn" data-text="/waypoint -171, 131.5, 13">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Erudition Aviary</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 139, 103, -13</code>
+        <button class="copy-btn" data-text="/waypoint 139, 103, -13">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Fountain room of Aeristok</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -16, -2, 12</code>
+        <button class="copy-btn" data-text="/waypoint -16, -2, 12">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Great Aviary</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -28, 141, 0</code>
+        <button class="copy-btn" data-text="/waypoint -28, 141, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Gymnasium</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -68, 86, -4</code>
+        <button class="copy-btn" data-text="/waypoint -68, 86, -4">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Hatchery</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -150, 86, 15</code>
+        <button class="copy-btn" data-text="/waypoint -150, 86, 15">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The King's Roost</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 25, 162, 44.5</code>
+        <button class="copy-btn" data-text="/waypoint 25, 162, 44.5">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Lyceum of Naar'Yora</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -29, 56, 0</code>
+        <button class="copy-btn" data-text="/waypoint -29, 56, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Meatery</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 169, 82, 21</code>
+        <button class="copy-btn" data-text="/waypoint 169, 82, 21">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Nest of the East wing</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 20, 0, 111</code>
+        <button class="copy-btn" data-text="/waypoint 20, 0, 111">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Nest of the Overseers</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -169, 111, -10</code>
+        <button class="copy-btn" data-text="/waypoint -169, 111, -10">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Nest of the Sky Lords</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 182, 81, -1</code>
+        <button class="copy-btn" data-text="/waypoint 182, 81, -1">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Nest of the west wing</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 19, 0, -111</code>
+        <button class="copy-btn" data-text="/waypoint 19, 0, -111">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Oratory of Naar Yora</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 37, 113, 0</code>
+        <button class="copy-btn" data-text="/waypoint 37, 113, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Refrectory</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -12, 85, 0</code>
+        <button class="copy-btn" data-text="/waypoint -12, 85, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Spiroc Foyer</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -85, 0, 166</code>
+        <button class="copy-btn" data-text="/waypoint -85, 0, 166">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Vestibule of Four winds</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -73, 0, -0.5</code>
+        <button class="copy-btn" data-text="/waypoint -73, 0, -0.5">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Walk of flights</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -86.5, -6, 86.5</code>
+        <button class="copy-btn" data-text="/waypoint -86.5, -6, 86.5">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Workshop of Naar'yora</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 168, 57, -19</code>
+        <button class="copy-btn" data-text="/waypoint 168, 57, -19">Copy</button>
+      </div>
+    </div>
   </div>
-  <div class="task-row"><label><input type="checkbox" id="chambersOfVorn"> Chambers of Vorn</label>
-    <div class="waypoint"><code>/waypoint 350, 50, 120</code></div>
-  </div>
-  <!-- Add other tasks with their waypoints if available -->
-</section>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-<section class="palace-of-the-awakened">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/palace-of-the-awakened" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Palace of the Awakened
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">The Vaults of El'Arad</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="The Vaults of El'Arad" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Auditorium</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -6, 57, 0</code>
+        <button class="copy-btn" data-text="/waypoint -6, 57, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Chamber of the Vaultkeeper</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 168, 57, 0</code>
+        <button class="copy-btn" data-text="/waypoint 168, 57, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Grand Hallway</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -88, 0, 86</code>
+        <button class="copy-btn" data-text="/waypoint -88, 0, 86">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Hallway of Learning</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 0, 0, 49</code>
+        <button class="copy-btn" data-text="/waypoint 0, 0, 49">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Hallway of the Antechamber</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 44, 57, 0</code>
+        <button class="copy-btn" data-text="/waypoint 44, 57, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Library of Arcane Research</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 16, 0, 111</code>
+        <button class="copy-btn" data-text="/waypoint 16, 0, 111">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Palisade of the Flamelord</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 11, 26, 0</code>
+        <button class="copy-btn" data-text="/waypoint 11, 26, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Ulteran Spire Room</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -43, 0, 0</code>
+        <button class="copy-btn" data-text="/waypoint -43, 0, 0">Copy</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-  <div class="task-row"><label><input type="checkbox" id="mainHall"> Main Hall</label>
-    <div class="waypoint"><code>/waypoint 100, 100, 100</code></div>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">Nest of the Great Egg</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="Nest of the Great Egg" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Destroyed Foyer</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 37, 86, 0</code>
+        <button class="copy-btn" data-text="/waypoint 37, 86, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Great Egg</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 180, 103, 0</code>
+        <button class="copy-btn" data-text="/waypoint 180, 103, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Hooluk Scholar Quarters</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 183, 81, 0</code>
+        <button class="copy-btn" data-text="/waypoint 183, 81, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Library of the Seven</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -21, 56, 0</code>
+        <button class="copy-btn" data-text="/waypoint -21, 56, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Main Library</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 1668, 57, 0</code>
+        <button class="copy-btn" data-text="/waypoint 1668, 57, 0">Copy</button>
+      </div>
+    </div>
   </div>
-  <div class="task-row"><label><input type="checkbox" id="chamberOfWhispers"> Chamber of Whispers</label>
-    <div class="waypoint"><code>/waypoint 150, 110, 130</code></div>
-  </div>
-  <!-- Add other tasks with their waypoints if available -->
-</section>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-<section class="the-vaults-of-el-arad">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/the-vaults-of-el-arad" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      The Vaults of El'Arad
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">Den of the Devourer</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="Den of the Devourer" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Hall of Guardians</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -181, -20, 44</code>
+        <button class="copy-btn" data-text="/waypoint -181, -20, 44">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Hatching Chamber</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -304, -35, 38</code>
+        <button class="copy-btn" data-text="/waypoint -304, -35, 38">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Queen's Hive</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -260, -14, 211</code>
+        <button class="copy-btn" data-text="/waypoint -260, -14, 211">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Waterfall Room</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -157, 0, 187</code>
+        <button class="copy-btn" data-text="/waypoint -157, 0, 187">Copy</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-  <div class="task-row"><label><input type="checkbox" id="auditorium"> Auditorium</label>
-    <div class="waypoint"><code>/waypoint -6, 57, 0</code></div>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">The Halls of Fate</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="The Halls of Fate" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Atrium of Kildrukaun</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 0, 39, -15</code>
+        <button class="copy-btn" data-text="/waypoint 0, 39, -15">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Carnivorous Pillar</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -45.5, -59, -55.5</code>
+        <button class="copy-btn" data-text="/waypoint -45.5, -59, -55.5">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Doomwing Rookery</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -76, -68, 452</code>
+        <button class="copy-btn" data-text="/waypoint -76, -68, 452">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Pit of Talons</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 3.5, -40, 130.5</code>
+        <button class="copy-btn" data-text="/waypoint 3.5, -40, 130.5">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Skarize Dracoatory</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 118.5, -11.5, -23.5</code>
+        <button class="copy-btn" data-text="/waypoint 118.5, -11.5, -23.5">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Viewing Room</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -1, 1.5, -98</code>
+        <button class="copy-btn" data-text="/waypoint -1, 1.5, -98">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Wordless Chamber</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -22, -53, 269</code>
+        <button class="copy-btn" data-text="/waypoint -22, -53, 269">Copy</button>
+      </div>
+    </div>
   </div>
-  <div class="task-row"><label><input type="checkbox" id="chamberOfVaultkeeper"> Chamber of the Vaultkeeper</label>
-    <div class="waypoint"><code>/waypoint 168, 57, 0</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="grandHallway"> The Grand Hallway</label>
-    <div class="waypoint"><code>/waypoint -88, 0, 86</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="hallwayOfLearning"> Hallway of Learning</label>
-    <div class="waypoint"><code>/waypoint 0, 0, 49</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="hallwayOfAntechamber"> Hallway of the Antechamber</label>
-    <div class="waypoint"><code>/waypoint 44, 57, 0</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="libraryOfArcaneResearch"> Library of Arcane Research</label>
-    <div class="waypoint"><code>/waypoint 61, 57, -17</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="treasury"> Treasury</label>
-    <div class="waypoint"><code>/waypoint 0, 44, 0</code></div>
-  </div>
-</section>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-<section class="nest-of-the-great-egg">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/nest-of-the-great-egg" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Nest of the Great Egg
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">The Blackscale Sepulcher</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="The Blackscale Sepulcher" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Crypt</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 10, 0, 195</code>
+        <button class="copy-btn" data-text="/waypoint 10, 0, 195">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Great Hall</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 36, 12, 0</code>
+        <button class="copy-btn" data-text="/waypoint 36, 12, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> The Sealing Chamber</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 165, -19, 24</code>
+        <button class="copy-btn" data-text="/waypoint 165, -19, 24">Copy</button>
+      </div>
+    </div>
+  </div>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-  <div class="task-row"><label><input type="checkbox" id="eggChamber"> Egg Chamber</label>
-    <div class="waypoint"><code>/waypoint 100, 200, 300</code></div>
+<details open>
+  <summary>
+    <div class="arrow"></div>
+    <div class="section-header">
+      <a href="#palace-of-the-awakened" target="_blank" rel="noopener noreferrer">Ascent of the Awakened</a>
+      <img src="https://example.com/images/palace_of_the_awakened.jpg" alt="Ascent of the Awakened" />
+    </div>
+  </summary>
+  <div class="waypoints">
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Fall of the Flapping Wing</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -6, 25, 6</code>
+        <button class="copy-btn" data-text="/waypoint -6, 25, 6">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Fountain of the Slashing</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -2.49, -1.36, -2.34</code>
+        <button class="copy-btn" data-text="/waypoint -2.49, -1.36, -2.34">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Great Hall of Fire</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -168, 131, 23</code>
+        <button class="copy-btn" data-text="/waypoint -168, 131, 23">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Great Hall of Ice</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 144, 102, 0</code>
+        <button class="copy-btn" data-text="/waypoint 144, 102, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Library of Ice</label>
+      <div class="waypoint-controls">
+        <code>/waypoint 168, 82, 0</code>
+        <button class="copy-btn" data-text="/waypoint 168, 82, 0">Copy</button>
+      </div>
+    </div>
+    <div class="waypoint-item">
+      <label><input type="checkbox" /> Orators Arena</label>
+      <div class="waypoint-controls">
+        <code>/waypoint -148, 86, -14</code>
+        <button class="copy-btn" data-text="/waypoint -148, 86, -14">Copy</button>
+      </div>
+    </div>
   </div>
-  <div class="task-row"><label><input type="checkbox" id="greatNest"> Great Nest</label>
-    <div class="waypoint"><code>/waypoint 200, 250, 350</code></div>
-  </div>
-  <!-- Add other tasks with their waypoints if available -->
-</section>
+  <button class="toggle-btn" onclick="toggleCheckboxes(this)">Select All</button>
+</details>
 
-<section class="the-blackscale-sepulcher">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/the-blackscale-sepulcher" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      The Blackscale Sepulcher
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
 
-  <div class="task-row"><label><input type="checkbox" id="blackscaleSepulcherEntry"> Entry Hall</label>
-    <div class="waypoint"><code>/waypoint 111, 210, -649</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="cryptsOfScales"> Crypts of Scales</label>
-    <div class="waypoint"><code>/waypoint 120, 215, -670</code></div>
-  </div>
-  <!-- Add other tasks with their waypoints if available -->
-</section>
+<!-- Add additional sections below, duplicating the above structure with appropriate content -->
 
-<section class="the-halls-of-fate">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/the-halls-of-fate" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      The Halls of Fate
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('details').forEach((section, sectionIndex) => {
+      const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+      const key = `checkboxState_section_${sectionIndex}`;
 
-  <div class="task-row"><label><input type="checkbox" id="chamberOfFate"> Chamber of Fate</label>
-    <div class="waypoint"><code>/waypoint -3, -376, -33</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="hallOfJudgement"> Hall of Judgement</label>
-    <div class="waypoint"><code>/waypoint -15, -370, -25</code></div>
-  </div>
-</section>
+      // Load saved state
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        const states = JSON.parse(saved);
+        checkboxes.forEach((cb, i) => {
+          cb.checked = states[i] || false;
+        });
+      }
 
-<section class="den-of-the-devourer">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/den-of-the-devourer" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Den of the Devourer
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+      // Save state on change
+      checkboxes.forEach((cb, i) => {
+        cb.addEventListener('change', () => {
+          const currentStates = Array.from(checkboxes).map(c => c.checked);
+          localStorage.setItem(key, JSON.stringify(currentStates));
+        });
+      });
+    });
+  });
 
-  <div class="task-row"><label><input type="checkbox" id="devourersLair"> Devourer's Lair</label>
-    <div class="waypoint"><code>/waypoint 400, 150, -100</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="devourersPit"> Devourer's Pit</label>
-    <div class="waypoint"><code>/waypoint 410, 145, -120</code></div>
-  </div>
-  <!-- Add other tasks with their waypoints if available -->
-</section>
+  function toggleCheckboxes(btn) {
+    const section = btn.closest('details');
+    const checkboxes = section.querySelectorAll('input[type="checkbox"]');
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    checkboxes.forEach(cb => cb.checked = !allChecked);
+    btn.textContent = allChecked ? 'Select All' : 'Deselect All';
 
-<section class="ascent-of-the-awakened">
-  <h3>
-    <img src="https://cdn-icons-png.flaticon.com/128/869/869869.png" alt="" style="width: 40px; height: 40px;">
-    <a href="https://example.com/ascent-of-the-awakened" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration: underline;">
-      Ascent of the Awakened
-    </a>
-  </h3>
-  <button class="select-toggle">Select All</button>
+    // Save updated state immediately after toggle
+    const sectionIndex = Array.from(document.querySelectorAll('details')).indexOf(section);
+    const key = `checkboxState_section_${sectionIndex}`;
+    const currentStates = Array.from(checkboxes).map(c => c.checked);
+    localStorage.setItem(key, JSON.stringify(currentStates));
+  }
+  
+	// Copy button logic
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const text = button.getAttribute('data-text');
+      navigator.clipboard.writeText(text).then(() => {
+        button.textContent = 'Copied!';
+        setTimeout(() => button.textContent = 'Copy', 1500);
+      }).catch(() => alert('Copy failed'));
+    });
+  });
+</script>
 
-  <div class="task-row"><label><input type="checkbox" id="ascentBaseCamp"> Base Camp</label>
-    <div class="waypoint"><code>/waypoint 0, 0, 0</code></div>
-  </div>
-  <div class="task-row"><label><input type="checkbox" id="summit"> Summit</label>
-    <div class="waypoint"><code>/waypoint 50, 50, 50</code></div>
-  </div>
-  <!-- Add other tasks with their waypoints if available -->
-</section>
+</body>
+</html>
